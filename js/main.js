@@ -1,5 +1,5 @@
 var gameData = {
-	update: 0.1,
+	update: 0.2,
 	beer: 0,
 	beerPerClick: 1,
 	beerPerClickCost: 10,
@@ -31,10 +31,26 @@ function buyBeerPerClick() {
 	}
 }
 
-// Loop to trigger autobrew every second
-// var mainGameLoop = window.setInterval(function() {
-//   brewBeer()
-// }, 1000)
+//Toggle buttons
+function toggleButtons() {
+	//Toggle upgrade
+	if (gameData.money < gameData.beerPerClickCost) {
+		document.getElementById("upgrade-btn").disabled = true;
+	} else {
+		document.getElementById("upgrade-btn").disabled = false;  
+	}
+
+	if (gameData.beer < 1) {
+		document.getElementById("sell-btn").disabled = true;
+	} else {
+		document.getElementById("sell-btn").disabled = false;
+	}
+}
+
+//Main game loop
+var mainGameLoop = window.setInterval(function() {
+	toggleButtons();
+}, 100)
 
 
 /* 
