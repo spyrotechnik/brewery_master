@@ -37,8 +37,6 @@ function buyBeerPerClick() {
 // }, 1000)
 
 
-
-
 /* 
 Game management
 The section below contains all game management code.
