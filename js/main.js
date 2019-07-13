@@ -66,6 +66,48 @@ var mainGameLoop = window.setInterval(function() {
     // brewBeer();
 }, 10)
 
+//Content pages
+
+function load_brewery() {
+    $("#brewery").show();
+    $("#wholesale").hide();
+    $("#research").hide();
+    $("#events").hide();
+    $("#statistics").hide();
+}
+
+function load_wholesale() {
+    $("#brewery").hide();
+    $("#wholesale").show();
+    $("#research").hide();
+    $("#events").hide();
+    $("#statistics").hide();
+}
+
+function load_research() {
+    $("#brewery").hide();
+    $("#wholesale").hide();
+    $("#research").show();
+    $("#events").hide();
+    $("#statistics").hide();
+}
+
+function load_events() {
+    $("#brewery").hide();
+    $("#wholesale").hide();
+    $("#research").hide();
+    $("#events").show();
+    $("#statistics").hide();
+}
+
+function load_statistics() {
+    $("#brewery").hide();
+    $("#wholesale").hide();
+    $("#research").hide();
+    $("#events").hide();
+    $("#statistics").show();
+}
+
 
 /* 
 Game management
@@ -138,4 +180,4 @@ var saveGameLoop = window.setInterval(function() {
     document.getElementById("game_saved").innerHTML = "Game saved..."
     $('#game_saved').fadeIn().fadeOut(2000, "swing");
 
-}, 30000)
+}, 1000)

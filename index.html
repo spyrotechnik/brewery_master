@@ -28,11 +28,11 @@
         <div class="bg-light border-right" id="sidebar-wrapper">
             <div class="sidebar-heading">Brewery Master</div>
             <div class="list-group list-group-flush">
-                <a href="#" class="list-group-item list-group-item-action bg-light">Brewery</a>
-                <a href="#" class="list-group-item list-group-item-action bg-light">Wholesale</a>
-                <a href="#" class="list-group-item list-group-item-action bg-light">Research</a>
-                <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
-                <a href="#" class="list-group-item list-group-item-action bg-light">Statistics</a>
+                <a class="list-group-item list-group-item-action bg-light" onclick="load_brewery()">Brewery</a>
+                <a class="list-group-item list-group-item-action bg-light" onclick="load_wholesale()">Wholesale</a>
+                <a class="list-group-item list-group-item-action bg-light" onclick="load_research()">Research</a>
+                <a class="list-group-item list-group-item-action bg-light" onclick="load_events()">Events</a>
+                <a class="list-group-item list-group-item-action bg-light" onclick="load_statistics()">Statistics</a>
             </div>
             <div class="sidebar-footer">
                 <p>Created by: <a href=https://github.com/spyrotechnik/brewery_master>SpyroTechnik</a> - 2019</p>
@@ -72,8 +72,10 @@
             </nav>
 
             <!-- Main container -->
-            <div class="container">
-                <div class="container-fluid">
+            <div class="container" id="main">
+                <div class="container-fluid" id="brewery">
+                    <h1>Brewery</h1>
+                    <hr>
                     <p id="beerBrewed"></p>
                     <p id="money"></p>
                     <button type="button" class="btn btn-warning" onclick="brewBeer()">Brew beer</button>
@@ -82,6 +84,28 @@
                     <button id="upgrade-btn" type="button" class="btn btn-dark" onclick="buyBeerPerClick()">Upgrade beer brewing</button>
                     <p id="perClickUpgrade"></p>
                 </div>
+
+                <div class="container-fluid" id="wholesale" style="display:none">
+                    <h1>Wholesale</h1>
+                    <hr>
+                    <p id="grainStock"></p>
+                </div>
+
+                <div class="container-fluid" id="research" style="display:none">
+                    <h1>Research</h1>
+                    <hr>
+                </div>
+
+                <div class="container-fluid" id="events" style="display:none">
+                    <h1>Events</h1>
+                    <hr>
+                </div>
+
+                <div class="container-fluid" id="statistics" style="display:none">
+                    <h1>Statistics</h1>
+                    <hr>
+                </div>
+
                 <div>
                     <p id="game_saved"></p>
                 </div>
