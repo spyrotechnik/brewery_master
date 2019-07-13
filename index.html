@@ -3,107 +3,106 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <link rel="icon" href="images/logo.ico">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="images/logo.ico">
 
-  <title>Brewery Master</title>
+    <title>Brewery Master</title>
 
-  <!-- Bootstrap core CSS -->
-  <link href="css/bootstrap.css" rel="stylesheet">
-  <link href="css/simple-sidebar.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/simple-sidebar.css" rel="stylesheet">
 
-  <!-- Main js file -->
-  <script src="js/main.js" charset="utf-8" type="text/javascript"></script>
+    <!-- Main js file -->
+    <script src="js/main.js" charset="utf-8" type="text/javascript"></script>
 
 </head>
 
 <body>
 
-  <div class="d-flex" id="wrapper">
+    <div class="d-flex" id="wrapper">
 
-    <!-- Sidebar -->
-    <div class="bg-light border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading">Brewery Master</div>
-      <div class="list-group list-group-flush">
-        <a href="#" class="list-group-item list-group-item-action bg-light">Brewery</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Wholesale</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Research</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Statistics</a>
-      </div>
-    </div>
-    <!-- /#sidebar-wrapper -->
+        <!-- Sidebar -->
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading">Brewery Master</div>
+            <div class="list-group list-group-flush">
+                <a href="#" class="list-group-item list-group-item-action bg-light">Brewery</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Wholesale</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Research</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Statistics</a>
+            </div>
+            <div class="sidebar-footer">
+                <p>Created by: <a href=https://github.com/spyrotechnik/brewery_master>SpyroTechnik</a> - 2019</p>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
 
-    <!-- Top bar -->
-    <div id="page-content-wrapper">
+        <!-- Top bar -->
+        <div id="page-content-wrapper">
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Options
-              </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <div class="wrapper">
-                  <button type="button" class="btn btn-success" onclick="saveGame()">Save Game</button>
-                  <div class="dropdown-divider"></div>
-                  <button type="button" class="btn btn-info" onclick="loadGame()">Load Game</button>   
-                  <div class="dropdown-divider"></div>
-                  <button type="button" class="btn btn-danger" onclick="restartGame()">Restart Game</button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <div class="wrapper">
+                                    <button type="button" class="btn btn-success" onclick="saveGame()">Save Game</button>
+                                    <div class="dropdown-divider"></div>
+                                    <button type="button" class="btn btn-info" onclick="loadGame()">Load Game</button>
+                                    <div class="dropdown-divider"></div>
+                                    <button type="button" class="btn btn-danger" onclick="restartGame()">Restart Game</button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-              </div>
-            </li>
-          </ul>
+            </nav>
+
+            <!-- Main container -->
+            <div class="container">
+                <div class="container-fluid">
+                    <p id="beerBrewed"></p>
+                    <p id="money"></p>
+                    <button type="button" class="btn btn-warning" onclick="brewBeer()">Brew beer</button>
+                    <button id="sell-btn" type="button" class="btn btn-success" onclick="sellBeer()">Sell beer</button>
+                    <button id="sell-all-btn" type="button" class="btn btn-success" onclick="sellAllBeer()">Sell all beer</button>
+                    <button id="upgrade-btn" type="button" class="btn btn-dark" onclick="buyBeerPerClick()">Upgrade beer brewing</button>
+                    <p id="perClickUpgrade"></p>
+                </div>
+                <div>
+                    <p id="game_saved"></p>
+                </div>
+            </div>
+            <!-- /#page-content-wrapper -->
+
         </div>
-      </nav>
-      
-      <!-- Main container -->
-      <div class="container">
-          <div class="container-fluid">
-            <p id="beerBrewed"></p>
-            <p id="money"></p>
-            <button type="button" class="btn btn-warning" onclick="brewBeer()">Brew beer</button>
-            <button id="sell-btn" type="button" class="btn btn-success" onclick="sellBeer()">Sell beer</button>
-            <button id="sell-all-btn" type="button" class="btn btn-success" onclick="sellAllBeer()">Sell all beer</button>
-            <button id="upgrade-btn" type="button" class="btn btn-dark" onclick="buyBeerPerClick()">Upgrade beer brewing</button>
-            <p id="perClickUpgrade"></p>
-          </div>
-          <div>
-            <canvas id="doughnutChart"></canvas>
-            <p id="game_saved"></p>
-          </div>
-        </div>
-    </div>
-    <!-- /#page-content-wrapper -->
+        <!-- /#wrapper -->
 
-  </div>
-  <!-- /#wrapper -->
+        <!-- Bootstrap core JavaScript -->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="vendor/mdb/mdb.js"></script>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="vendor/mdb/mdb.js"></script>
-
-  <!-- Menu Toggle Script -->
-  <script>
-    $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
-  </script>
+        <!-- Menu Toggle Script -->
+        <script>
+            $("#menu-toggle").click(function(e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+        </script>
 
 </body>
 
