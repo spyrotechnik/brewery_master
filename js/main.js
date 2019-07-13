@@ -1,25 +1,30 @@
 // Gamedata
-var gameData = {
+let gameData = {
     update: 0.2,
     beer: 0,
     beerPerClick: 1,
     beerPerClickCost: 10,
+    grain: 10,
     money: 0,
     moneyPerBeer: 1
 }
 
+let grainCost = 1;
+
 // Functions
 function brewBeer() {
-    gameData.beer += gameData.beerPerClick
-    document.getElementById('beerBrewed').innerHTML = gameData.beer + " beer in stock"
+    if (gameData.grain > 0) {
+        gameData.beer += gameData.beerPerClick
+        gameData.grain = (gameData.grain - 1)
+        showGameData();
+    }
 }
 
 function sellBeer() {
     if (gameData.beer > 0) {
         gameData.beer -= 1
-        document.getElementById('beerBrewed').innerHTML = gameData.beer + " beer in stock"
         gameData.money += gameData.moneyPerBeer
-        document.getElementById('money').innerHTML = "$" + gameData.money
+        showGameData();
     }
 }
 
@@ -27,8 +32,7 @@ function sellAllBeer() {
     if (gameData.beer > 0) {
         gameData.money += (gameData.moneyPerBeer * gameData.beer)
         gameData.beer -= gameData.beer
-        document.getElementById('beerBrewed').innerHTML = gameData.beer + " beer in stock"
-        document.getElementById('money').innerHTML = "$" + gameData.money
+        showGameData();
     }
 }
 
@@ -37,8 +41,15 @@ function buyBeerPerClick() {
         gameData.money -= gameData.beerPerClickCost;
         gameData.beerPerClick += 1;
         gameData.beerPerClickCost = Math.round(gameData.beerPerClickCost * (Math.pow(1.09, gameData.beerPerClick)));
-        document.getElementById('money').innerHTML = "$" + gameData.money
-        document.getElementById("perClickUpgrade").innerHTML = "Current upgrade level: " + gameData.beerPerClick + " -- Cost: $" + gameData.beerPerClickCost
+        showGameData();
+    }
+}
+
+function buyGrain() {
+    if (gameData.money >= grainCost) {
+        gameData.grain += 1;
+        gameData.money = (gameData.money - grainCost);
+        showGameData();
     }
 }
 
@@ -58,10 +69,16 @@ function toggleButtons() {
         document.getElementById("sell-btn").disabled = false;
         document.getElementById("sell-all-btn").disabled = false;
     }
+
+    if (gameData.money < grainCost) {
+        document.getElementById("buy-grain-btn").disabled = true;
+    } else {
+        document.getElementById("buy-grain-btn").disabled = false;
+    }
 }
 
 //Main game loop
-var mainGameLoop = window.setInterval(function() {
+let mainGameLoop = window.setInterval(function() {
     toggleButtons();
     // brewBeer();
 }, 10)
@@ -115,15 +132,21 @@ The section below contains all game management code.
 This includes all helper functions 
 */
 
+function showGameData() {
+    document.getElementById("beerBrewed").innerHTML = gameData.beer + " beer in stock"
+    document.getElementById('grainStock').innerHTML = gameData.grain + " kg grain in stock"
+    document.getElementById("money").innerHTML = "$" + gameData.money
+    document.getElementById("perClickUpgrade").innerHTML = "Current upgrade level: " + gameData.beerPerClick + " -- Cost: $" + gameData.beerPerClickCost
+    document.getElementById("grainPrice").innerHTML = "Price per kg grain: $" + grainCost;
+}
+
 window.onload = function() {
     var savegame = JSON.parse(localStorage.getItem("saveFile"))
     if (savegame !== null) {
         gameData = savegame
     }
 
-    document.getElementById("beerBrewed").innerHTML = gameData.beer + " beer in stock"
-    document.getElementById("money").innerHTML = "$" + gameData.money
-    document.getElementById("perClickUpgrade").innerHTML = "Current upgrade level: " + gameData.beerPerClick + " -- Cost: $" + gameData.beerPerClickCost
+    showGameData();
 }
 
 // Save current game state to local json file
@@ -133,11 +156,11 @@ function saveGame() {
         beer: gameData.beer,
         beerPerClick: gameData.beerPerClick,
         beerPerClickCost: gameData.beerPerClickCost,
+        grain: gameData.grain,
         money: gameData.money
     };
 
     localStorage.setItem('saveFile', JSON.stringify(file));
-    displayMessage();
 };
 
 // Load saved game state from local json file
@@ -149,11 +172,10 @@ function loadGame() {
         gameData.beer = file.beer;
         gameData.beerPerClick = file.beerPerClick;
         gameData.beerPerClickCost = file.beerPerClickCost;
+        gameData.grain = file.grain;
         gameData.money = file.money;
 
-        document.getElementById("beerBrewed").innerHTML = gameData.beer + " beer in stock"
-        document.getElementById("money").innerHTML = "$" + gameData.money
-        document.getElementById("perClickUpgrade").innerHTML = "Current upgrade level: " + gameData.beerPerClick + " -- Cost: $" + gameData.beerPerClickCost
+        showGameData();
     } else {
         console.log("no save file")
     }
@@ -166,8 +188,8 @@ function restartGame() {
 }
 
 // Saving loop triggers autosave every 30 seconds
-var saveGameLoop = window.setInterval(function() {
-    var file = {
+let saveGameLoop = window.setInterval(function() {
+    let file = {
         update: gameData.update,
         beer: gameData.beer,
         beerPerClick: gameData.beerPerClick,
@@ -180,4 +202,4 @@ var saveGameLoop = window.setInterval(function() {
     document.getElementById("game_saved").innerHTML = "Game saved..."
     $('#game_saved').fadeIn().fadeOut(2000, "swing");
 
-}, 1000)
+}, 30000)
