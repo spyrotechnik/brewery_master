@@ -1,3 +1,4 @@
+// Gamedata
 var gameData = {
 	update: 0.2,
 	beer: 0,
@@ -7,6 +8,7 @@ var gameData = {
 	moneyPerBeer: 1
 }
 
+// Functions
 function brewBeer() {
 	gameData.beer += gameData.beerPerClick
 	document.getElementById('beerBrewed').innerHTML = gameData.beer + " beer in stock"
@@ -14,10 +16,19 @@ function brewBeer() {
 
 function sellBeer() {
 	if (gameData.beer > 0) {
-		gameData.beer = gameData.beer - 1
+		gameData.beer -= 1
 		document.getElementById('beerBrewed').innerHTML = gameData.beer + " beer in stock"
 		gameData.money += gameData.moneyPerBeer
 		document.getElementById('money').innerHTML = "$" + gameData.money
+	}
+}
+
+function sellAllBeer() {
+	if (gameData.beer > 0) {
+		gameData.money += (gameData.moneyPerBeer * gameData.beer)
+		gameData.beer -= gameData.beer
+		document.getElementById('beerBrewed').innerHTML = gameData.beer + " beer in stock"
+		document.getElementById('money').innerHTML = "$" + gameData.money		
 	}
 }
 
@@ -42,15 +53,18 @@ function toggleButtons() {
 
 	if (gameData.beer < 1) {
 		document.getElementById("sell-btn").disabled = true;
+		document.getElementById("sell-all-btn").disabled = true;
 	} else {
 		document.getElementById("sell-btn").disabled = false;
+		document.getElementById("sell-all-btn").disabled = false;
 	}
 }
 
 //Main game loop
 var mainGameLoop = window.setInterval(function() {
 	toggleButtons();
-}, 100)
+	brewBeer();
+}, 10)
 
 
 /* 
