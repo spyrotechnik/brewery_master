@@ -123,14 +123,6 @@ function restartGame() {
     location.reload();
 }
 
-// Displays message when autosave triggered
-function displayMessage() {
-    document.getElementById("game_saved").innerHTML = "Game saved..."
-    setTimeout(function() {
-        document.getElementById("game_saved").innerHTML = '';
-    }, 2000);
-}
-
 // Saving loop triggers autosave every 30 seconds
 var saveGameLoop = window.setInterval(function() {
     var file = {
