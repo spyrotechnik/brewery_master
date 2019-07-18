@@ -6,14 +6,18 @@ let gameData = {
     beerPerClickCost: 10,
     grain: 10,
     money: 0,
-    moneyPerBeer: 1
+    moneyPerBeer: 1,
+    grainCapacity: 10,
+    grainCost: 1,
+    grainPerMin: 0.1
 }
 
-let grainCost = 1;
+// Global variables
+let grainInterval = 5000;
 
 // Functions
 function brewBeer() {
-    if (gameData.grain > 0) {
+    if (gameData.grain >= 1) {
         gameData.beer += gameData.beerPerClick
         gameData.grain = (gameData.grain - 1)
         showGameData();
@@ -46,15 +50,29 @@ function buyBeerPerClick() {
 }
 
 function buyGrain() {
-    if (gameData.money >= grainCost) {
+    if (gameData.money >= gameData.grainCost) {
         gameData.grain += 1;
-        gameData.money = (gameData.money - grainCost);
+        gameData.money = (gameData.money - gameData.grainCost);
+        showGameData();
+    }
+}
+
+function harvestGrain() {
+    if(gameData.grain < gameData.grainCapacity) {
+        gameData.grain += gameData.grainPerMin;
         showGameData();
     }
 }
 
 //Toggle buttons
 function toggleButtons() {
+    //Toggle brew
+    if (gameData.grain < 1) {
+        document.getElementById("brew-btn").disabled = true;
+    } else {
+        document.getElementById("brew-btn").disabled = false;
+    }
+
     //Toggle upgrade
     if (gameData.money < gameData.beerPerClickCost) {
         document.getElementById("upgrade-btn").disabled = true;
@@ -62,6 +80,7 @@ function toggleButtons() {
         document.getElementById("upgrade-btn").disabled = false;
     }
 
+    // Toggle sell
     if (gameData.beer < 1) {
         document.getElementById("sell-btn").disabled = true;
         document.getElementById("sell-all-btn").disabled = true;
@@ -70,18 +89,22 @@ function toggleButtons() {
         document.getElementById("sell-all-btn").disabled = false;
     }
 
-    if (gameData.money < grainCost) {
+    // Toggle buy grain
+    if (gameData.money < gameData.grainCost) {
         document.getElementById("buy-grain-btn").disabled = true;
     } else {
         document.getElementById("buy-grain-btn").disabled = false;
     }
 }
 
-//Main game loop
+//Game loops
 let mainGameLoop = window.setInterval(function() {
     toggleButtons();
-    // brewBeer();
 }, 10)
+
+let grainLoop = window.setInterval(function() {
+    harvestGrain();
+}, grainInterval)
 
 //Content pages
 
@@ -133,11 +156,11 @@ This includes all helper functions
 */
 
 function showGameData() {
-    document.getElementById("beerBrewed").innerHTML = gameData.beer + " beer in stock"
-    document.getElementById('grainStock').innerHTML = gameData.grain + " kg grain in stock"
-    document.getElementById("money").innerHTML = "$" + gameData.money
-    document.getElementById("perClickUpgrade").innerHTML = "Current upgrade level: " + gameData.beerPerClick + " -- Cost: $" + gameData.beerPerClickCost
-    document.getElementById("grainPrice").innerHTML = "Price per kg grain: $" + grainCost;
+    $(".beerBrewed").html(gameData.beer + " beer in stock");
+    $(".grainStock").html((Math.round(gameData.grain * 10) / 10) + " kg grain in stock");
+    $(".money").html("$" + gameData.money);
+    $(".perClickUpgrade").html("Current upgrade level: " + gameData.beerPerClick + " -- Cost: $" + gameData.beerPerClickCost);
+    $(".grainPrice").html("Price per kg grain: $" + gameData.grainCost);
 }
 
 window.onload = function() {
@@ -157,7 +180,11 @@ function saveGame() {
         beerPerClick: gameData.beerPerClick,
         beerPerClickCost: gameData.beerPerClickCost,
         grain: gameData.grain,
-        money: gameData.money
+        money: gameData.money,
+        moneyPerBeer: gameData.moneyPerBeer,
+        grainCapacity: gameData.grainCapacity,
+        grainCost: gameData.grainCost,
+        grainPerMin: gameData.grainPerMin
     };
 
     localStorage.setItem('saveFile', JSON.stringify(file));
@@ -174,6 +201,10 @@ function loadGame() {
         gameData.beerPerClickCost = file.beerPerClickCost;
         gameData.grain = file.grain;
         gameData.money = file.money;
+        gameData.moneyPerBeer = file.moneyPerBeer;
+        gameData.grainCapacity = file.grainCapacity;
+        gameData.grainCost = file.grainCost;
+        gameData.grainPerMin = file.grainPerMin;
 
         showGameData();
     } else {
@@ -189,17 +220,21 @@ function restartGame() {
 
 // Saving loop triggers autosave every 30 seconds
 let saveGameLoop = window.setInterval(function() {
-    let file = {
+    var file = {
         update: gameData.update,
         beer: gameData.beer,
         beerPerClick: gameData.beerPerClick,
         beerPerClickCost: gameData.beerPerClickCost,
-        money: gameData.money
+        grain: gameData.grain,
+        money: gameData.money,
+        moneyPerBeer: gameData.moneyPerBeer,
+        grainCapacity: gameData.grainCapacity,
+        grainCost: gameData.grainCost,
+        grainPerMin: gameData.grainPerMin
     };
 
     localStorage.setItem('saveFile', JSON.stringify(file))
     
-    document.getElementById("game_saved").innerHTML = "Game saved..."
-    $('#game_saved').fadeIn().fadeOut(2000, "swing");
+    $($(".game_saved").html("Game saved...")).fadeIn().fadeOut(2000, "swing");
 
 }, 30000)

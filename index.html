@@ -45,7 +45,7 @@
 
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                 <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
-
+                
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -76,27 +76,27 @@
                 <div class="container-fluid" id="brewery">
                     <h1>Brewery</h1>
                     <hr>
-                    <p id="beerBrewed"></p>
-                    <p id="money"></p>
-                    <p id="grainStock"></p>
-                    <button type="button" class="btn btn-warning" onclick="brewBeer()">Brew beer</button>
+                    <div class="beerBrewed"></div>
+                    <div class="money"></div>
+                    <div class="grainStock"></div>
+                    <button id="brew-btn" type="button" class="btn btn-warning" onclick="brewBeer()">Brew beer</button>
                     <button id="sell-btn" type="button" class="btn btn-success" onclick="sellBeer()">Sell beer</button>
                     <button id="sell-all-btn" type="button" class="btn btn-success" onclick="sellAllBeer()">Sell all beer</button>
-                    <button id="upgrade-btn" type="button" class="btn btn-dark" onclick="buyBeerPerClick()">Upgrade beer brewing</button>
-                    <p id="perClickUpgrade"></p>
                 </div>
 
                 <div class="container-fluid" id="wholesale" style="display:none">
                     <h1>Wholesale</h1>
                     <hr>
-                    <p id="grainStock"></p>
+                    <div class="grainStock"></div>
                     <button id="buy-grain-btn" type="button" class="btn btn-primary" onclick="buyGrain()">Buy grain</button>
-                    <p id="grainPrice"></p>
+                    <div class="grainPrice"></div>
                 </div>
 
                 <div class="container-fluid" id="research" style="display:none">
                     <h1>Research</h1>
                     <hr>
+                    <button id="upgrade-btn" type="button" class="btn btn-dark" onclick="buyBeerPerClick()">Upgrade beer brewing</button>
+                    <div class="perClickUpgrade"></div>
                 </div>
 
                 <div class="container-fluid" id="events" style="display:none">
@@ -110,7 +110,7 @@
                 </div>
 
                 <div>
-                    <p id="game_saved"></p>
+                    <div class="game_saved"></div>
                 </div>
             </div>
             <!-- /#page-content-wrapper -->
